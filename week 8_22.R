@@ -80,8 +80,7 @@ magma
          axis.text.y = element_blank(),
          axis.text.x = element_blank(),
          axis.title.x = element_blank(),
-         legend.position = "None",
-         plot.subtitle = element_text(size = 12, hjust = 0.5, vjust = -100, face = "italic", colour = "gray32")
+         legend.position = "None"
          )
  )
 
