@@ -13,6 +13,10 @@ library(tidytuesdayR)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
+library(ggsci)
+library(viridis)
+library(ggtext)
+library(patchwork)
 
 
 # DATA ----
@@ -36,6 +40,7 @@ freedom_renamed <- mutate(freedom, Region_Name = ifelse(country == south_america
 freedom_renamed <- mutate(freedom_renamed, Region_Name = ifelse(Region_Name == "Americas", "north america", Region_Name))
 unique(freedom_renamed$Region_Name)
 
+
 # prep data
 region <- freedom_renamed %>%
   group_by(Region_Name, year) %>%
@@ -47,34 +52,57 @@ region <- freedom_renamed %>%
 freedom_renamed %>% filter(Region_Name == "south america") %>%  summary()
 
 # VISUALISATION ---- 
+# colours
+magma <- magma(7)
+magma[2] <- "white"
+magma[7] <- "#2D1160FF"
+magma
+
 # civil liberties
 (cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
-   geom_jitter(data = freedom, size = 0.5, alpha = 0.2) +
+   geom_jitter(data = freedom, size = 0.5, alpha = 0.3) +
    geom_line(size = 1.5) +
    scale_y_reverse() +
-   scale_colour_grey() +
-   # change the colours. Make them colourblind-friendly!
-   
-   annotate(geom = "text", label = "Asia", x = 2021.8, y = 4.8) +    # maybe read the y value from the table?
-   annotate(geom = "text", label = "Africa", x = 2022, y = 4.4) +
-   annotate(geom = "text", label = "South America", x = 2024, y = 3) +
-   annotate(geom = "text", label = "North America", x = 2024, y = 2.6) +
-   annotate(geom = "text", label = "Europe", x = 2022.3, y = 1.9) +
-   annotate(geom = "text", label = "Oceania", x = 2022.4, y = 1.7) +    # add the right colours to the labels!
-   annotate(geom = "text", label = "high", x = 1996, y = 1, size = 9, fontface = "bold") +    # make them bold!
+   scale_color_manual(values = magma, )) +
+   ylab("CIVIL LIBERTIES") +
+  
+   annotate(geom = "text", label = "Asia", x = 2021.5, y = 4.8, colour = "#721F81FF", size = 7 ) +    # maybe read the y value from the table?
+   annotate(geom = "text", label = "Africa", x = 2021.7, y = 4.4, colour = "#000004FF", size = 7) +
+   annotate(geom = "text", label = "South America", x = 2023.1, y = 3, colour = "#2D1160FF", size = 7) +
+   annotate(geom = "text", label = "North America", x = 2023.1, y = 2.6, colour = "#F1605DFF", size = 7) +
+   annotate(geom = "text", label = "Europe", x = 2022, y = 1.9, colour = "#B63679FF", size = 7) +
+   annotate(geom = "text", label = "Oceania", x = 2022.1, y = 1.7, colour = "#FEAF77FF", size = 7) +
+   annotate(geom = "text", label = "high", x = 1996, y = 1, size = 9, fontface = "bold") +
    annotate(geom = "text", label = "low", x = 1996, y = 7, size = 9, fontface = "bold") +
    
    theme_minimal() +
    theme(panel.grid = element_blank(),
-         axis.title.y = element_blank(),
+         axis.title.y = element_text(size = 60, colour = "gray50"),
          axis.text.y = element_blank(),
-         axis.text.x = element_blank()
-         # get rid of the legend all togehter!
+         axis.text.x = element_blank(),
+         axis.title.x = element_blank(),
+         legend.position = "None"
          )
  )
 
 # political rights
+set.seed(2022)
 (pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
-    geom_line(size = 1.5)
-  )
+  geom_jitter(data = freedom, size = 0.5, alpha = 0.3) +
+  geom_line(size = 1.5) +
+  scale_y_reverse() +
+  scale_color_manual(values = magma, )) +
+  ylab("POLITICAL RIGHTS") +
+  labs(caption = expression(paste(bold("Data: "), "Freedom House  ", bold("|  Plot: "), "@itsrebeccarau"))) +
+  
+  theme_minimal() +
+  theme(panel.grid = element_blank(),
+        axis.title.y = element_text(size = 60, colour = "gray50"),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size = 15),
+        axis.title.x = element_blank(),
+        legend.position = "NONE")
+)
+
+
 
