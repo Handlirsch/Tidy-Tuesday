@@ -15,8 +15,7 @@ library(dplyr)
 library(ggplot2)
 library(viridis)
 library(ggtext)
-library(cowplot)
-
+library(patchwork)
 
 
 # DATA ----
@@ -40,7 +39,6 @@ freedom_renamed <- mutate(freedom, Region_Name = ifelse(country == south_america
 freedom_renamed <- mutate(freedom_renamed, Region_Name = ifelse(Region_Name == "Americas", "north america", Region_Name))
 unique(freedom_renamed$Region_Name)
 
-
 # prep data
 region <- freedom_renamed %>%
   group_by(Region_Name, year) %>%
@@ -51,7 +49,9 @@ region <- freedom_renamed %>%
 
 freedom_renamed %>% filter(Region_Name == "south america") %>%  summary()
 
+
 # VISUALISATION ---- 
+
 # colours
 magma <- magma(7)
 magma[2] <- "white"
@@ -66,18 +66,18 @@ cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
    scale_color_manual(values = magma) +
    ylab("CIVIL LIBERTIES") +
   
-   annotate(geom = "text", label = "Asia", x = 2021.5, y = 4.8, colour = "#721F81FF", size = 7 ) +    # maybe read the y value from the table?
-   annotate(geom = "text", label = "Africa", x = 2021.7, y = 4.4, colour = "#000004FF", size = 7) +
-   annotate(geom = "text", label = "South America", x = 2023.1, y = 3, colour = "#2D1160FF", size = 7) +
-   annotate(geom = "text", label = "North America", x = 2023.1, y = 2.6, colour = "#F1605DFF", size = 7) +
-   annotate(geom = "text", label = "Europe", x = 2022, y = 1.9, colour = "#B63679FF", size = 7) +
-   annotate(geom = "text", label = "Oceania", x = 2022.1, y = 1.7, colour = "#FEAF77FF", size = 7) +
+   annotate(geom = "text", label = "Asia", x = 2021.7, y = 4.8, colour = "#721F81FF", size = 7 ) +    # maybe read the y value from the table?
+   annotate(geom = "text", label = "Africa", x = 2021.9, y = 4.4, colour = "#000004FF", size = 7) +
+   annotate(geom = "text", label = "South America", x = 2024.1, y = 3, colour = "#2D1160FF", size = 7) +
+   annotate(geom = "text", label = "North America", x = 2024.1, y = 2.6, colour = "#F1605DFF", size = 7) +
+   annotate(geom = "text", label = "Europe", x = 2022.2, y = 2.1, colour = "#B63679FF", size = 7) +
+   annotate(geom = "text", label = "Oceania", x = 2022.4, y = 1.5, colour = "#FEAF77FF", size = 7) +
    annotate(geom = "text", label = "high", x = 1996, y = 1, size = 9, fontface = "bold") +
    annotate(geom = "text", label = "low", x = 1996, y = 7, size = 9, fontface = "bold") +
    
    theme_minimal() +
    theme(panel.grid = element_blank(),
-         axis.title.y = element_text(size = 60, colour = "gray50"),
+         axis.title.y = element_text(size = 30, colour = "gray50"),
          axis.text.y = element_blank(),
          axis.text.x = element_blank(),
          axis.title.x = element_blank(),
@@ -93,11 +93,11 @@ pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
   labs(caption = expression(paste(bold("Data: "), "Freedom House  ", bold("|  Plot: "), "@itsrebeccarau"))) +
   
   annotate(geom = "text", label = "dots represent the scores per county and year\nlines indicate the mean per continent", 
-           x = 2016, y = 6.6, fontface = "bold.italic") +
+           x = 2014, y = 6.6, fontface = "bold.italic") +
   
   theme_minimal() +
   theme(panel.grid = element_blank(),
-        axis.title.y = element_text(size = 60, colour = "gray50"),
+        axis.title.y = element_text(size = 30, colour = "gray50"),
         axis.text.y = element_blank(),
         axis.text.x = element_text(size = 15),
         axis.title.x = element_blank(),
@@ -105,4 +105,7 @@ pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
 
 
 # combine plots
+combination <- cl_reg/pr_reg
+
+ggsave("week-8.png", width = 7, height = 5, dpi = 300)
 
