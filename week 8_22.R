@@ -52,6 +52,7 @@ freedom_renamed %>% filter(Region_Name == "south america") %>%  summary()
    geom_jitter(data = freedom, size = 0.5, alpha = 0.2) +
    geom_line(size = 1.5) +
    scale_y_reverse() +
+   scale_colour_grey() +
    # change the colours. Make them colourblind-friendly!
    
    annotate(geom = "text", label = "Asia", x = 2021.8, y = 4.8) +    # maybe read the y value from the table?
