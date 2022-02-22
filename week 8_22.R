@@ -27,6 +27,14 @@ str(freedom)
 summary(freedom)
 unique(freedom$Region_Name)
 
+# divide the americas
+americas <- subset(freedom, Region_Name == "Americas", select = country)
+americas <- unique(americas)
+south_america <- c("Argentina", "Bolivia (Plurinational State of)", "Brazil", "Chile",
+                   "Colombia", "Ecuador", "Guyana", "Paraguay", "Peru", "Suriname", 
+                   "Uruguay", "Venezuela (Bolivarian Republic of)")
+freedom_southamerica <- filter(freedom, Region_Name == "Americas", country %in% south_america)
+
 # prep data
 region <- freedom %>%
   group_by(Region_Name, year) %>%
@@ -35,40 +43,27 @@ region <- freedom %>%
     PR = mean(PR)
   )
 
-countries <- freedom %>% 
-  group_by(country, year) #%>% 
-summarise(
-  CL = mean(na.omit(CL)),
-  PR = mean(na.omit(PR))
-)
-
-asia <- filter(freedom, Region_Name == "Asia")
-oceania <- filter(freedom, Region_Name == "Oceania")
-unique(oceania$country)    # 14 countries
-
-
-
-
 
 # VISUALISATION ---- 
-(cl_reg <- ggplot(regio, aes(year, CL, colour = Region_Name)) +
-   geom_point())
+# civil liberties
+(cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
+   geom_jitter(data = freedom, size = 0.5, alpha = 0.2) +
+   geom_line(size = 1.5) +
+   scale_y_reverse() +
+   
+   annotate(geom = "text", label = "Asia", x = 2019, y = 5.2) +
+   annotate(geom = "text", label = "Africa", x = 2019, y = 4) +
+   annotate(geom = "text", label = "Americas", x = 2019, y = 2.9) +
+   
+   theme_minimal() +
+   theme(panel.grid = element_blank(),
+         axis.title.y = element_blank(),
+         axis.text.y = element_blank()
+         )
+ )
 
-(pr_reg <- ggplot(regio, aes(year, PR, colour = Region_Name)) +
-    geom_line())
+# political rights
+(pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
+    geom_line(size = 1.5)
+  )
 
-(cl_ctr <- ggplot(countries, aes(year, CL, colour = country)) +
-  geom_line())
-
-(cl_asia <- ggplot(asia, aes(year, CL, colour = country)) +
-  geom_jitter())
-
-# oceania
-# I want to plot all and highlight Tonga
-(cl_oz <- ggplot(oceania, aes(year, CL)) +
-    geom_jitter() +
-    geom_smooth(method = "lm"))
-
-(pr_oz <- ggplot(oceania, aes(year, PR, colour = country)) +
-    geom_jitter() +
-    geom_smooth(method = "lm"))
