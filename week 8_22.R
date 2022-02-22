@@ -15,6 +15,7 @@ library(dplyr)
 library(ggplot2)
 library(viridis)
 library(ggtext)
+library(patchwork)
 
 
 
@@ -58,11 +59,11 @@ magma[7] <- "#2D1160FF"
 magma
 
 # civil liberties
-(cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
+cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
    geom_jitter(data = freedom, size = 0.5, alpha = 0.3) +
    geom_line(size = 1.5) +
    scale_y_reverse() +
-   scale_color_manual(values = magma, )) +
+   scale_color_manual(values = magma) +
    ylab("CIVIL LIBERTIES") +
   
    annotate(geom = "text", label = "Asia", x = 2021.5, y = 4.8, colour = "#721F81FF", size = 7 ) +    # maybe read the y value from the table?
@@ -80,22 +81,19 @@ magma
          axis.text.y = element_blank(),
          axis.text.x = element_blank(),
          axis.title.x = element_blank(),
-         legend.position = "None"
-         )
- )
+         legend.position = "None")
 
 # political rights
-set.seed(2022)
-(pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
+pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
   geom_jitter(data = freedom, size = 0.5, alpha = 0.3) +
   geom_line(size = 1.5) +
   scale_y_reverse() +
-  scale_color_manual(values = magma, )) +
+  scale_color_manual(values = magma) +
   ylab("POLITICAL RIGHTS") +
   labs(caption = expression(paste(bold("Data: "), "Freedom House  ", bold("|  Plot: "), "@itsrebeccarau"))) +
   
   annotate(geom = "text", label = "dots represent the scores per county and year\nlines indicate the mean per continent", 
-           x = 2016, y = 7, fontface = "italic") +
+           x = 2016, y = 6.6, fontface = "bold.italic") +
   
   theme_minimal() +
   theme(panel.grid = element_blank(),
@@ -104,7 +102,8 @@ set.seed(2022)
         axis.text.x = element_text(size = 15),
         axis.title.x = element_blank(),
         legend.position = "NONE")
-)
+
 
 # combine plots
 
+cl_reg/pr_reg
