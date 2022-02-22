@@ -44,6 +44,7 @@ region <- freedom_renamed %>%
     PR = mean(PR)
   )
 
+freedom_renamed %>% filter(Region_Name == "south america") %>%  summary()
 
 # VISUALISATION ---- 
 # civil liberties
@@ -53,6 +54,7 @@ region <- freedom_renamed %>%
    scale_y_reverse() +
    
    # change the year-steps on the x-axis!
+   # change the colours. Make them colourblind-friendly!
    
    annotate(geom = "text", label = "Asia", x = 2021.8, y = 4.8) +    # maybe read the y value from the table?
    annotate(geom = "text", label = "Africa", x = 2022, y = 4.4) +
@@ -60,8 +62,8 @@ region <- freedom_renamed %>%
    annotate(geom = "text", label = "North America", x = 2024, y = 2.6) +
    annotate(geom = "text", label = "Europe", x = 2022.3, y = 1.9) +
    annotate(geom = "text", label = "Oceania", x = 2022.4, y = 1.7) +    # add the right colours to the labels!
-   annotate(geom = "text", label = "high", x = 1996, y = 1) +    # make them bold!
-   annotate(geom = "text", label = "low", x = 1996, y = 7) +
+   annotate(geom = "text", label = "high", x = 1996, y = 1, size = 9, fontface = "bold") +    # make them bold!
+   annotate(geom = "text", label = "low", x = 1996, y = 7, size = 9, fontface = "bold") +
    
    theme_minimal() +
    theme(panel.grid = element_blank(),
