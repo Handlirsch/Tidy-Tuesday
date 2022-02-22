@@ -15,7 +15,7 @@ library(dplyr)
 library(ggplot2)
 library(viridis)
 library(ggtext)
-library(patchwork)
+library(cowplot)
 
 
 
@@ -106,4 +106,3 @@ pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
 
 # combine plots
 
-cl_reg/pr_reg
