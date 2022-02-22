@@ -52,8 +52,6 @@ freedom_renamed %>% filter(Region_Name == "south america") %>%  summary()
    geom_jitter(data = freedom, size = 0.5, alpha = 0.2) +
    geom_line(size = 1.5) +
    scale_y_reverse() +
-   
-   # change the year-steps on the x-axis!
    # change the colours. Make them colourblind-friendly!
    
    annotate(geom = "text", label = "Asia", x = 2021.8, y = 4.8) +    # maybe read the y value from the table?
@@ -69,6 +67,7 @@ freedom_renamed %>% filter(Region_Name == "south america") %>%  summary()
    theme(panel.grid = element_blank(),
          axis.title.y = element_blank(),
          axis.text.y = element_blank(),
+         axis.text.x = element_blank()
          # get rid of the legend all togehter!
          )
  )
