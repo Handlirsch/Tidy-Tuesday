@@ -90,7 +90,7 @@ pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
   scale_y_reverse() +
   scale_color_manual(values = magma) +
   ylab("POLITICAL RIGHTS") +
-  labs(caption = expression(paste(bold("Data: "), "Freedom House  ", bold("|  Plot: "), "@itsrebeccarau"))) +
+  labs(caption = expression(paste("\n", bold("Data: "), "Freedom House  ", bold("|  Plot: "), "@itsrebeccarau"))) +
   
   annotate(geom = "text", label = "dots represent the scores per county and year\nlines indicate the mean per continent", 
            x = 2014, y = 6.6, fontface = "bold.italic") +
@@ -101,11 +101,12 @@ pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
         axis.text.y = element_blank(),
         axis.text.x = element_text(size = 15),
         axis.title.x = element_blank(),
-        legend.position = "NONE")
+        legend.position = "NONE",
+        plot.caption = element_text(size = 20))
 
 
 # combine plots
 combination <- cl_reg/pr_reg
 
-ggsave("week-8.png", width = 7, height = 5, dpi = 300)
+ggsave("week-8.png", width = 10, height = 15, dpi = 300)
 
