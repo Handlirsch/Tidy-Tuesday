@@ -65,6 +65,7 @@ cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
    scale_y_reverse() +
    scale_color_manual(values = magma) +
    ylab("CIVIL LIBERTIES") +
+  labs(title = "World Freedom Index") +
   
    annotate(geom = "text", label = "Asia", x = 2021.7, y = 4.8, colour = "#721F81FF", size = 7 ) +    # maybe read the y value from the table?
    annotate(geom = "text", label = "Africa", x = 2021.9, y = 4.4, colour = "#000004FF", size = 7) +
@@ -81,7 +82,8 @@ cl_reg <- ggplot(region, aes(year, CL, colour = Region_Name)) +
          axis.text.y = element_blank(),
          axis.text.x = element_blank(),
          axis.title.x = element_blank(),
-         legend.position = "None")
+         legend.position = "None",
+         plot.title = element_text(size = 30, face = "bold", hjust = 0.5))
 
 # political rights
 pr_reg <- ggplot(region, aes(year, PR, colour = Region_Name)) +
