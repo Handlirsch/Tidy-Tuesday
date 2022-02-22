@@ -13,10 +13,9 @@ library(tidytuesdayR)
 library(tidyr)
 library(dplyr)
 library(ggplot2)
-library(ggsci)
 library(viridis)
 library(ggtext)
-library(patchwork)
+
 
 
 # DATA ----
@@ -81,7 +80,8 @@ magma
          axis.text.y = element_blank(),
          axis.text.x = element_blank(),
          axis.title.x = element_blank(),
-         legend.position = "None"
+         legend.position = "None",
+         plot.subtitle = element_text(size = 12, hjust = 0.5, vjust = -100, face = "italic", colour = "gray32")
          )
  )
 
@@ -95,6 +95,9 @@ set.seed(2022)
   ylab("POLITICAL RIGHTS") +
   labs(caption = expression(paste(bold("Data: "), "Freedom House  ", bold("|  Plot: "), "@itsrebeccarau"))) +
   
+  annotate(geom = "text", label = "dots represent the scores per county and year\nlines indicate the mean per continent", 
+           x = 2016, y = 7, fontface = "italic") +
+  
   theme_minimal() +
   theme(panel.grid = element_blank(),
         axis.title.y = element_text(size = 60, colour = "gray50"),
@@ -104,5 +107,5 @@ set.seed(2022)
         legend.position = "NONE")
 )
 
-
+# combine plots
 
