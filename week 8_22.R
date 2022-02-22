@@ -21,7 +21,6 @@ library(ggplot2)
 tuesdata <- tidytuesdayR::tt_load(2022, week = 8)
 freedom <- tuesdata$freedom
 
-
 # understand data
 str(freedom)
 summary(freedom)
@@ -33,10 +32,12 @@ americas <- unique(americas)
 south_america <- c("Argentina", "Bolivia (Plurinational State of)", "Brazil", "Chile",
                    "Colombia", "Ecuador", "Guyana", "Paraguay", "Peru", "Suriname", 
                    "Uruguay", "Venezuela (Bolivarian Republic of)")
-freedom_southamerica <- filter(freedom, Region_Name == "Americas", country %in% south_america)
+freedom_renamed <- mutate(freedom, Region_Name = ifelse(country == south_america, "south america", Region_Name))
+freedom_renamed <- mutate(freedom_renamed, Region_Name = ifelse(Region_Name == "Americas", "north america", Region_Name))
+unique(freedom_renamed$Region_Name)
 
 # prep data
-region <- freedom %>%
+region <- freedom_renamed %>%
   group_by(Region_Name, year) %>%
   summarise(
     CL = mean(CL),
@@ -51,14 +52,22 @@ region <- freedom %>%
    geom_line(size = 1.5) +
    scale_y_reverse() +
    
-   annotate(geom = "text", label = "Asia", x = 2019, y = 5.2) +
-   annotate(geom = "text", label = "Africa", x = 2019, y = 4) +
-   annotate(geom = "text", label = "Americas", x = 2019, y = 2.9) +
+   # change the year-steps on the x-axis!
+   
+   annotate(geom = "text", label = "Asia", x = 2021.8, y = 4.8) +    # maybe read the y value from the table?
+   annotate(geom = "text", label = "Africa", x = 2022, y = 4.4) +
+   annotate(geom = "text", label = "South America", x = 2024, y = 3) +
+   annotate(geom = "text", label = "North America", x = 2024, y = 2.6) +
+   annotate(geom = "text", label = "Europe", x = 2022.3, y = 1.9) +
+   annotate(geom = "text", label = "Oceania", x = 2022.4, y = 1.7) +    # add the right colours to the labels!
+   annotate(geom = "text", label = "high", x = 1996, y = 1) +    # make them bold!
+   annotate(geom = "text", label = "low", x = 1996, y = 7) +
    
    theme_minimal() +
    theme(panel.grid = element_blank(),
          axis.title.y = element_blank(),
-         axis.text.y = element_blank()
+         axis.text.y = element_blank(),
+         # get rid of the legend all togehter!
          )
  )
 
