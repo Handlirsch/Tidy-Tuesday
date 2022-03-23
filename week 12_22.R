@@ -107,3 +107,51 @@ nz_names %>% filter(Name == "Rebecca") %>%
 nz_names %>% filter(Name == "Lena") %>% 
   ggplot(aes(x = Year, y = Count)) +
   geom_line()
+
+
+# NAME OF THRONES ----
+
+babynames %>% filter(name == "Arya") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Sansa") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Tyrion") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Khaleesi") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Daenerys") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Bran") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Theon") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Maisie") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+
+babynames %>% filter(name == "Kit") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+babynames %>% filter(name == "Lyanna") %>% 
+  ggplot(aes(year, n)) +
+  geom_line()
+
+
+
+
