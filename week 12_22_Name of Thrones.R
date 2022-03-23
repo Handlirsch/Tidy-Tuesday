@@ -6,6 +6,21 @@
 #                                                          #
 ##%######################################################%##
 
+# LIBRARY ----
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(ggpubr)
+library(jpeg)
+library(ggtext)
+library(showtext)
+
+
+# DATA ----
+tuesdata <- tidytuesdayR::tt_load(2022, week = 12)
+babynames <- tuesdata$babynames
+
+
 # NAME OF THRONES ----
 
 # names I want to look at:
