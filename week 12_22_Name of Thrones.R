@@ -71,6 +71,7 @@ showtext_auto()
 
 babynames %>% 
   filter(name %in% got$name) %>%
+  count(name, year, wt = n) %>% 
   ggplot(aes(year, n, colour = name)) +
   # rectangle for TV airing
   geom_rect(aes(xmin = 2011, xmax = 2019, ymin = -Inf, ymax = Inf), 
@@ -110,4 +111,5 @@ babynames %>%
 
 
 # save the plot
-ggsave("pictures/name-of-thrones.png")
+ggsave("pictures/name-of-thrones_new.png", width = 30, height = 30, units = "cm")
+
