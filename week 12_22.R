@@ -110,6 +110,28 @@ nz_names %>% filter(Name == "Lena") %>%
 
 
 
+
+
+
+# Lord of the Names ----
+babynames %>% filter(name == "Haldir") %>% glimpse()
+
+# Aragorn, Elijah, Gandalf, Legolas, Arwen, Galadriel, Bilbo, Peregrin, Pippin 
+
+
+
+
+
+# Harry Potter ----
+babynames %>% filter(name == "Harry") %>% glimpse()
+
+# Harry, Ron, Ronald, Hermione, Albus, Severus, Ginny, Draco, Minerva, Neville, 
+# Sirius, Luna, Molly, Bellatrix, Dolores, Remus, Dobby, Lucius
+
+
+
+
+
 # NAME OF THRONES ----
 
 # names I want to look at:
